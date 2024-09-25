@@ -1,22 +1,29 @@
 "use client";
 
-const SearchForm = () => {
+//import listCollections from "../_actions/list-collections";
+//import listPhotos from "../_actions/list-photos";
+import { redirect } from "next/navigation";
+import SearchInput from "./search-input";
+
+interface SearchFormProps {
+  defaultValue?: string | number | readonly string[] | undefined;
+  className?: string;
+}
+
+const SearchForm = ({ className, defaultValue }: SearchFormProps) => {
   return (
     <form
       action={async (formData) => {
-        const search = formData.get("search");
-        console.log(search);
+        const _searchArray = (formData.get("search") as string)?.split(" ");
+        const search = _searchArray.length ? _searchArray : _searchArray[0];
+        redirect(`/photos?search=${search}`);
       }}
-      className="flex flex-col gap-5 items-center w-[40%]"
     >
-      <h2 className="font-bold text-4xl">Search</h2>
-      <span className="font-semibold text-textSecondary">
-        Search high-resolution images from Unsplash
-      </span>
-      <input
+      <SearchInput
         name="search"
-        className="font-semibold border-border border-2 px-4 py-5 rounded-md w-full"
         placeholder={"Enter your keywords..."}
+        className={(className ?? "") + " mx-auto w-[90%]"}
+        defaultValue={defaultValue}
       />
     </form>
   );
