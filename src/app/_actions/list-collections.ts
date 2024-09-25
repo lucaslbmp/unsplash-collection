@@ -1,10 +1,10 @@
 import unsplashApi from "../lib/unsplash";
 
-const listCollections = async (query: string | string[]) => {
+const listCollections = async (page?: number, perPage?: number) => {
   try {
     const data = await unsplashApi.collections.list({
-      page: 1,
-      perPage: 10,
+      page: page ?? 1,
+      perPage: perPage ?? 10,
     });
     if (!data.response?.results) {
       throw new Error(data.status + ": " + data?.errors);
