@@ -2,6 +2,7 @@ import getPhotos from "../_actions/get-photos";
 import Header from "../_components/header";
 import Image from "next/image";
 import SearchForm from "../_components/search-form";
+import Link from "next/link";
 
 type SearchParamsType = { search: string | undefined };
 
@@ -24,14 +25,14 @@ const PhotosPage = async ({ searchParams }: CollectionsPageParams) => {
       </div>
       <section className="p-[72px] grid gap-6 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {photos.map((photo) => (
-          <article key={photo.id}>
+          <Link key={photo.id} href={`/photos/${photo.id}`}>
             <Image
               src={photo.urls.raw}
               alt={photo.alt_description ?? ""}
               height={photo.height}
               width={photo.width}
             />
-          </article>
+          </Link>
         ))}
       </section>
     </main>
