@@ -2,6 +2,7 @@ import listCollections from "@/app/_actions/list-collections";
 import Image from "next/image";
 //import { collectionsData } from "./collections-data";
 import Header from "../_components/header";
+import Link from "next/link";
 
 const CollectionsPage = async () => {
   const collections = await listCollections();
@@ -19,7 +20,11 @@ const CollectionsPage = async () => {
       </div>
       <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-auto text-left justify-center gap-8 px-[70px] py-4">
         {collections?.map((collection) => (
-          <article key={collection.id}>
+          <Link
+            href={`/collections/${collection.id}`}
+            key={collection.id}
+            className="hover:opacity-50 hover:cursor-pointer"
+          >
             <div className="w-full h-[232px] relative">
               <Image
                 src={collection?.cover?.urls.raw ?? ""}
@@ -33,7 +38,7 @@ const CollectionsPage = async () => {
             <span className="text-textSecondary">
               {collection.quantity} photos
             </span>
-          </article>
+          </Link>
         ))}
       </section>
     </main>
