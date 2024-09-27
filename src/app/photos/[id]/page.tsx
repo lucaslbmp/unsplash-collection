@@ -1,24 +1,11 @@
 import getPhoto from "@/app/_actions/get-photo";
+import Button from "@/app/_components/button";
 import Header from "@/app/_components/header";
 import Image from "next/image";
-import { ButtonHTMLAttributes } from "react";
+import DownloadButton from "../../_components/download-button";
 
 type CollectionsPageParams = {
   params: { id: string };
-};
-
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
-
-const Button = (props: ButtonProps) => {
-  return (
-    <button
-      {...props}
-      className={props.className + " px-5 py-3 bg-bgHighlight rounded-md"}
-    >
-      {props.children}
-    </button>
-  );
 };
 
 const PhotoDetailsPage = async ({ params }: CollectionsPageParams) => {
@@ -26,6 +13,7 @@ const PhotoDetailsPage = async ({ params }: CollectionsPageParams) => {
   const photo = await getPhoto(id);
   const { user } = photo;
   const collections = photo.related_collections.results;
+
   return (
     <main className="flex flex-col min-h-dvh">
       <Header />
@@ -63,21 +51,16 @@ const PhotoDetailsPage = async ({ params }: CollectionsPageParams) => {
           </article>
 
           {/* Buttons */}
-          <div className="flex gap-4 ">
+          <form className="flex gap-4 ">
             <Button className="flex flex-row gap-2 items-center font-bold">
               <Image src={"/Plus.svg"} alt="plus" height={16} width={16} />
               Add to collection
             </Button>
-            <Button className="flex flex-row gap-2 items-center font-bold">
-              <Image
-                src={"/down-arrow.svg"}
-                alt="download"
-                height={16}
-                width={16}
-              />
-              Download
-            </Button>
-          </div>
+            <DownloadButton
+              download_location={photo.links.download}
+              name={photo.id}
+            />
+          </form>
 
           {/* Collections section */}
           <div>
