@@ -1,4 +1,5 @@
 import { InputHTMLAttributes } from "react";
+import { twMerge } from "tailwind-merge";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface SearchInputProps extends InputHTMLAttributes<HTMLInputElement> {}
@@ -8,10 +9,10 @@ const SearchInput = (props: SearchInputProps) => {
     <div>
       <input
         {...props}
-        className={
-          props.className +
-          " font-semibold border-border border-2 px-4 py-5 rounded-md w-full"
-        }
+        className={twMerge(
+          "font-semibold border-border border-2 px-4 py-5 rounded-md w-full",
+          props.className
+        )}
       />
       <input type="submit" className="hidden" />
     </div>
