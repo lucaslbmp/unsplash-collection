@@ -1,8 +1,8 @@
 import getPhoto from "@/app/_actions/get-photo";
-import Button from "@/app/_components/button";
 import Header from "@/app/_components/header";
 import Image from "next/image";
 import DownloadButton from "../../_components/download-button";
+import AddToCollectionButton from "./add-to-collection-button";
 
 type CollectionsPageParams = {
   params: { id: string };
@@ -52,10 +52,9 @@ const PhotoDetailsPage = async ({ params }: CollectionsPageParams) => {
 
           {/* Buttons */}
           <form className="flex gap-4 ">
-            <Button className="flex flex-row gap-2 items-center font-bold">
-              <Image src={"/Plus.svg"} alt="plus" height={16} width={16} />
-              Add to collection
-            </Button>
+            <AddToCollectionButton
+              currentcollections={collections.map((c) => c.id)}
+            />
             <DownloadButton
               download_location={photo.links.download}
               name={photo.id}
