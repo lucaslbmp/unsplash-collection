@@ -73,6 +73,10 @@ const AddToCollectionButton = (props: AddButtonProps) => {
                       <article
                         key={c.id}
                         className="flex gap-3 p-4 rounded-lg items-center hover:bg-bgHighlight hover:cursor-pointer hover:after:content-['+_Add_to_collection'] hover:after:mr-6 hover:after:font-semibold"
+                        onClick={async () => {
+                          await addPhotoToCollection(c.id);
+                          onClose();
+                        }}
                       >
                         <div className="w-[60px] h-[60px] relative">
                           <Image

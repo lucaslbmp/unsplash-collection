@@ -1,7 +1,12 @@
 @base_url=https://api.unsplash.com
+@localhost=http://localhost:3000
 
 ### get photos
 GET {{base_url}}/search/photos?query=cars
+Authorization: Client-ID WRGiE_HcVaepfpCB33mme5TG-QsKcgW-XOxlPNlfH98
+
+### get photo
+GET {{base_url}}/photos/UCd78vfC8vU
 Authorization: Client-ID WRGiE_HcVaepfpCB33mme5TG-QsKcgW-XOxlPNlfH98
 
 
@@ -12,3 +17,65 @@ Authorization: Client-ID WRGiE_HcVaepfpCB33mme5TG-QsKcgW-XOxlPNlfH98
 ### list collections
 GET {{base_url}}/collections
 Authorization: Client-ID WRGiE_HcVaepfpCB33mme5TG-QsKcgW-XOxlPNlfH98
+
+### get collection
+GET {{base_url}}/collections/bUQ-Yd5mbiw
+Authorization: Client-ID WRGiE_HcVaepfpCB33mme5TG-QsKcgW-XOxlPNlfH98
+
+### search collection
+GET {{base_url}}/search/collections?query=autumn,vibe
+Authorization: Client-ID WRGiE_HcVaepfpCB33mme5TG-QsKcgW-XOxlPNlfH98
+
+
+### download photo
+GET {{base_url}}/photos/UCd78vfC8vU/download
+Authorization: Client-ID WRGiE_HcVaepfpCB33mme5TG-QsKcgW-XOxlPNlfH98
+
+
+### update collection (local api)
+POST {{localhost}}/api/collections/12276674/add
+# Authorization: Bearer WRGiE_HcVaepfpCB33mme5TG-QsKcgW-XOxlPNlfH98
+Content-Type: application/json
+
+{
+    "photo_id": "UCd78vfC8vU"
+}
+
+### update collection (unsplash api)
+POST https://api.unsplash.com/collections/M3Dzx21mjs8/add
+Authorization: Bearer aDpsdK9oCMVKzZ4U48_63TL3os8Q5kJkGn0D4CUwxYI
+Content-Type: application/json
+
+{
+    "photo_id": "aCQ0IlYqjwY"
+}
+
+### test upload photo
+POST https://unsplash.com/napi/collections/M3Dzx21mjs8/add
+Content-Type: application/json
+Accept: application/json
+# Authorization: Client-ID WRGiE_HcVaepfpCB33mme5TG-QsKcgW-XOxlPNlfH98
+Authorization: Bearer 4ioqzEe2JLwofFtpLnvBNpzZpUYCiXOqFuAofqJ0WfQ
+
+{
+    "photo_id": "wA-eWDdrGs0"
+}
+
+
+### Authorize
+GET https://unsplash.com/oauth/authorize?client_id=WRGiE_HcVaepfpCB33mme5TG-QsKcgW-XOxlPNlfH98&redirect_uri=urn:ietf:wg:oauth:2.0:oob&response_type=code&scope=write_collections
+Accept: application/json
+# Content-Type: application/json
+
+### Get access token
+POST https://unsplash.com/oauth/token
+Content-Type: application/json
+Accept: application/json
+
+{
+    "client_id": "WRGiE_HcVaepfpCB33mme5TG-QsKcgW-XOxlPNlfH98",
+    "client_secret": "Pwsfbd0Pyg5PTWWyYj2Qkl-agKDZ2AcKl_JS6HxQ2rM",
+    "redirect_uri": "urn:ietf:wg:oauth:2.0:oob",
+    "grant_type": "authorization_code",
+    "code": "gJJ7mGcEDVUNCEUDNYBjVsXW2QW6kW4BuX1w3boZJ38"
+}
